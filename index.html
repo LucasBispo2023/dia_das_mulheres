@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flower Rain</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: black;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .flower {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            opacity: 0;
+            animation: fall linear infinite;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+        }
+
+        .heart {
+            position: absolute;
+            opacity: 1;
+            animation: fadeOut 2s forwards;
+            pointer-events: none;
+        }
+
+        .heart svg {
+            width: 50px;
+            height: 50px;
+        }
+
+        @keyframes fall {
+            from {
+                transform: translateY(-10vh);
+                opacity: 1;
+            }
+            to {
+                transform: translateY(100vh);
+                opacity: 0.5;
+            }
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+            }
+        }
+
+        /* Animação para o fade-in do texto */
+        .fade-in-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 2em;
+            text-align: center;
+            opacity: 0;
+            animation: fadeIn 80s forwards;
+            width: 90%;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Estilo para o "Feliz dia da mulher" */
+        .happy-womens-day {
+            position: absolute;
+            bottom: 20px;  /* Ajuste a distância de acordo com sua preferência */
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(126, 13, 13, 0.911);
+            font-size: 2em;
+            font-weight: bold;
+            text-align: center;
+            animation: fadeIn 80s forwards;
+        }
+    </style>
+</head>
+<body>
+    <div class="fade-in-text">
+        Cada pétala que aqui bailam ao descer<br>
+        São fragmentos de meu sentir profundo<br>
+        Como jardins infinitos que não cessam de florescer<br>
+        Meu amor por ti, é eterno e de outro mundo.
+    </div>
+
+    <!-- Novo texto "Feliz dia da mulher" -->
+    <div class="happy-womens-day">
+        Feliz dia da mulher
+    </div>
+
+    <script>
+        const flowers = [
+            "https://img.japankuru.com/prg_img/img/img2019091814255654922700.jpg",
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6_u0qqIh91eaTqS_2FLbSQYfMs3v79iQwOA&s",
+            "https://images.tcdn.com.br/img/img_prod/612276/lirios_rosa_platinado_583_1_31da5fc9e88b5365475e95e354b3b4b5_20220407164256.jpg",
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPkfY4lYajvlxooYibYeBfVxO4DzbmaDaCEndDtKDU77LGl5fC64BD3VAXX1LOcnY1CCA&usqp=CAU",
+            "https://i.pinimg.com/originals/dd/e6/97/dde6970dc5fd07e3937e7e0631011319.jpg",
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQK7b25guViPzaNCeGgeZmCwqfoe7-URV3GEQ&s",
+            "https://static.vecteezy.com/ti/fotos-gratis/t2/47106525-lirio-flores-com-lindo-borrao-fundo-gratis-foto.jpg",
+            "https://static.vecteezy.com/ti/fotos-gratis/t2/49881086-a-laranja-fundo-adornado-com-dourado-folhagem-e-brotos-em-uma-reboco-lirio-foto.jpg"
+        ];
+
+        // Função para gerar uma cor aleatória
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        // Função para criar as flores
+        function createFlower() {
+            const flower = document.createElement("img");
+            flower.src = flowers[Math.floor(Math.random() * flowers.length)];
+            flower.classList.add("flower");
+            flower.style.left = Math.random() * 100 + "vw";
+            flower.style.animationDuration = (Math.random() * 3 + 2) + "s";
+            flower.style.animationDelay = Math.random() * 2 + "s";
+            document.body.appendChild(flower);
+
+            // Função para lidar com o clique e toque
+            function handleClickOrTouch(event) {
+                // Impede que o evento de toque seja acionado duas vezes
+                event.preventDefault();
+
+                // Remover a flor ao ser clicada
+                flower.remove();
+
+                // Obter as coordenadas do clique ou toque
+                const clickX = event.type === "click" ? event.clientX : event.touches[0].clientX;
+                const clickY = event.type === "click" ? event.clientY : event.touches[0].clientY;
+
+                // Criar o elemento para o coração
+                const heart = document.createElement("div");
+                heart.classList.add("heart");
+                
+                // Criar o SVG diretamente no código (em vez de carregar o arquivo externo)
+                const randomColor = getRandomColor();
+                heart.innerHTML = ` 
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+                        <g transform="translate(0.000000,1024.000000) scale(0.100000,-0.100000)" 
+                           fill="${randomColor}" stroke="none">
+                            <path d="M3170 8780 c-857 -68 -1588 -728 -1810 -1632 -56 -229 -65 -310 -65
+                            -593 0 -278 9 -361 61 -595 96 -429 298 -868 587 -1274 78 -110 258 -300 1592
+                            -1684 1379 -1429 1508 -1560 1548 -1571 99 -28 -25 -148 1638 1576 1355 1406
+                            1516 1576 1591 1684 437 628 648 1236 648 1869 0 655 -243 1244 -692 1676
+                            -590 568 -1421 706 -2142 355 -338 -165 -634 -421 -905 -785 l-96 -128 -20 27
+                            c-161 222 -267 347 -411 484 -278 266 -589 446 -927 536 -175 47 -417 70 -597
+                            55z"/>
+                        </g>
+                    </svg>
+                `;
+
+                heart.style.left = `${clickX - 25}px`; // Centralizar no clique
+                heart.style.top = `${clickY - 25}px`;  // Centralizar no clique
+                document.body.appendChild(heart);
+
+                // Remover o coração após 2 segundos
+                setTimeout(() => {
+                    heart.remove();
+                }, 2000);
+            }
+
+            // Adicionando os ouvintes de evento para clique e toque
+            flower.addEventListener("click", handleClickOrTouch);
+            flower.addEventListener("touchend", handleClickOrTouch); // Para toque
+        }
+
+        setInterval(createFlower, 300);
+    </script>
+</body>
+</html>
