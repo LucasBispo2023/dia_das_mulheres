@@ -179,8 +179,7 @@
             }
 
             // Adicionando os ouvintes de evento para clique e toque
-            flower.addEventListener("click", handleClickOrTouch);
-            flower.addEventListener("touchend", handleClickOrTouch); // Para toque
+            flower.addEventListener("touchstart", handleClickOrTouch); // Para toque
         }
 
         setInterval(createFlower, 300);
