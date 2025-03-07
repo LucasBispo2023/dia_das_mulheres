@@ -130,17 +130,14 @@
             const flower = document.createElement("img");
             flower.src = flowers[Math.floor(Math.random() * flowers.length)];
             flower.classList.add("flower");
-            flower.style.left = Math.random() * 100 + "vw";
-            flower.style.animationDuration = (Math.random() * 3 + 2) + "s";
-            flower.style.animationDelay = Math.random() * 2 + "s";
+            flower.style.left = Math.random() * 90 + "vw";  // Mais espaço entre elas
+            flower.style.animationDuration = (Math.random() * 6 + 4) + "s";  // Flores mais lentas
+            flower.style.animationDelay = Math.random() * 4 + "s";
             document.body.appendChild(flower);
 
             // Função para lidar com o clique e toque
             function handleClickOrTouch(event) {
-                // Impede que o evento de toque seja acionado duas vezes
                 event.preventDefault();
-
-                // Remover a flor ao ser clicada
                 flower.remove();
 
                 // Obter as coordenadas do clique ou toque
@@ -151,7 +148,7 @@
                 const heart = document.createElement("div");
                 heart.classList.add("heart");
                 
-                // Criar o SVG diretamente no código (em vez de carregar o arquivo externo)
+                // Criar o SVG diretamente no código
                 const randomColor = getRandomColor();
                 heart.innerHTML = ` 
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
@@ -179,10 +176,11 @@
             }
 
             // Adicionando os ouvintes de evento para clique e toque
+            flower.addEventListener("click", handleClickOrTouch); // Para clique
             flower.addEventListener("touchstart", handleClickOrTouch); // Para toque
         }
 
-        setInterval(createFlower, 300);
+        setInterval(createFlower, 500);  // Ajuste o intervalo para gerar as flores mais espaçadas
     </script>
 </body>
 </html>
